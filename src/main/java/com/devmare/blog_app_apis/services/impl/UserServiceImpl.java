@@ -1,5 +1,6 @@
 package com.devmare.blog_app_apis.services.impl;
 
+import com.devmare.blog_app_apis.configuration.ModelMapperConfiguration;
 import com.devmare.blog_app_apis.entities.User;
 import com.devmare.blog_app_apis.exceptions.ResourceNotFoundException;
 import com.devmare.blog_app_apis.payloads.UserDTO;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ModelMapperConfiguration modelMapperConfiguration;
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
@@ -61,22 +65,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public User dtoToUser(UserDTO userDTO) {
-        User user = new User();
-        user.setId(userDTO.getId());
-        user.setName(userDTO.getName());
-        user.setEmail(userDTO.getEmail());
-        user.setAbout(userDTO.getAbout());
-        user.setPassword(userDTO.getPassword());
-        return user;
+        return modelMapperConfiguration.modelMapper().map(userDTO, User.class);
     }
 
     public UserDTO userToUserDTO(User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setName(user.getName());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setAbout(user.getAbout());
-        return userDTO;
+        return modelMapperConfiguration.modelMapper().map(user, UserDTO.class);
     }
 }
