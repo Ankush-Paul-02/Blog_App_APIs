@@ -62,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryList.stream().map(
                         category -> modelMapperConfiguration
                                 .modelMapper()
-                                .map(categoryList, CategoryDTO.class)
+                                .map(category, CategoryDTO.class)
                 ).collect(Collectors.toList());
     }
 }

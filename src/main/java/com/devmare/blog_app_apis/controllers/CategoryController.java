@@ -3,6 +3,7 @@ package com.devmare.blog_app_apis.controllers;
 import com.devmare.blog_app_apis.payloads.ApiResponse;
 import com.devmare.blog_app_apis.payloads.CategoryDTO;
 import com.devmare.blog_app_apis.services.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,14 @@ public class CategoryController {
 
     //! http://localhost:8081/api/categories/
     @PostMapping("/")
-    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
         CategoryDTO newCategoryDTO = categoryService.createCategory(categoryDTO);
         return new ResponseEntity<>(newCategoryDTO, HttpStatus.CREATED);
     }
 
     //! http://localhost:8081/api/categories/{categoryId}
     @PutMapping("/{categoryId}")
-    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody CategoryDTO categoryDTO, @PathVariable Integer categoryId) {
+    public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO, @PathVariable Integer categoryId) {
         CategoryDTO updatedCategory = categoryService.updateCategory(categoryDTO, categoryId);
         return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
     }
@@ -44,12 +45,13 @@ public class CategoryController {
     //! http://localhost:8081/api/categories/
     @GetMapping("/")
     public ResponseEntity<List<CategoryDTO>> getAllCategories() {
-        return ResponseEntity.ok(categoryService.getCategoryList());
+        List<CategoryDTO> categoryDTOSList = categoryService.getCategoryList();
+        return ResponseEntity.ok(categoryDTOSList);
     }
 
     //! http://localhost:8081/api/categories/{categoryId}
     @GetMapping("/{categoryId}")
     public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Integer categoryId) {
-        return ResponseEntity.ok(categoryService.getCategory(categoryId));
+        return new ResponseEntity<>(categoryService.getCategory(categoryId), HttpStatus.OK);
     }
 }
