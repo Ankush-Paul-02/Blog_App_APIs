@@ -1,6 +1,6 @@
 package com.devmare.blog_app_apis.controllers;
 
-import com.devmare.blog_app_apis.payloads.PostDTO;
+import com.devmare.blog_app_apis.payloads.dto.PostDTO;
 import com.devmare.blog_app_apis.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

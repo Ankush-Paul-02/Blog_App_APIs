@@ -1,6 +1,6 @@
 package com.devmare.blog_app_apis.services;
 
-import com.devmare.blog_app_apis.payloads.CategoryDTO;
+import com.devmare.blog_app_apis.payloads.dto.CategoryDTO;
 
 import java.util.List;
 

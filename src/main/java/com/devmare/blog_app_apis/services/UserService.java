@@ -1,6 +1,6 @@
 package com.devmare.blog_app_apis.services;
 
-import com.devmare.blog_app_apis.payloads.UserDTO;
+import com.devmare.blog_app_apis.payloads.dto.UserDTO;
 
 import java.util.List;
 

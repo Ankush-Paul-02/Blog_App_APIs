@@ -3,7 +3,7 @@ package com.devmare.blog_app_apis.services.impl;
 import com.devmare.blog_app_apis.configuration.ModelMapperConfiguration;
 import com.devmare.blog_app_apis.entities.User;
 import com.devmare.blog_app_apis.exceptions.ResourceNotFoundException;
-import com.devmare.blog_app_apis.payloads.UserDTO;
+import com.devmare.blog_app_apis.payloads.dto.UserDTO;
 import com.devmare.blog_app_apis.repositories.UserRepository;
 import com.devmare.blog_app_apis.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

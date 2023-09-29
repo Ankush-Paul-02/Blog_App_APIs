@@ -1,7 +1,7 @@
 package com.devmare.blog_app_apis.controllers;
 
 import com.devmare.blog_app_apis.payloads.ApiResponse;
-import com.devmare.blog_app_apis.payloads.CategoryDTO;
+import com.devmare.blog_app_apis.payloads.dto.CategoryDTO;
 import com.devmare.blog_app_apis.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

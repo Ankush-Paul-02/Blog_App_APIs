@@ -1,4 +1,4 @@
-package com.devmare.blog_app_apis.payloads;
+package com.devmare.blog_app_apis.payloads.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

@@ -3,7 +3,7 @@ package com.devmare.blog_app_apis.services.impl;
 import com.devmare.blog_app_apis.configuration.ModelMapperConfiguration;
 import com.devmare.blog_app_apis.entities.Category;
 import com.devmare.blog_app_apis.exceptions.ResourceNotFoundException;
-import com.devmare.blog_app_apis.payloads.CategoryDTO;
+import com.devmare.blog_app_apis.payloads.dto.CategoryDTO;
 import com.devmare.blog_app_apis.repositories.CategoryRepository;
 import com.devmare.blog_app_apis.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

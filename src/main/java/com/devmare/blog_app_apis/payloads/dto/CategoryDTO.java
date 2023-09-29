@@ -1,4 +1,4 @@
-package com.devmare.blog_app_apis.payloads;
+package com.devmare.blog_app_apis.payloads.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

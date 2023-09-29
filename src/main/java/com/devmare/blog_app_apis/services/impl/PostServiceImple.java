@@ -5,7 +5,7 @@ import com.devmare.blog_app_apis.entities.Category;
 import com.devmare.blog_app_apis.entities.Post;
 import com.devmare.blog_app_apis.entities.User;
 import com.devmare.blog_app_apis.exceptions.ResourceNotFoundException;
-import com.devmare.blog_app_apis.payloads.PostDTO;
+import com.devmare.blog_app_apis.payloads.dto.PostDTO;
 import com.devmare.blog_app_apis.repositories.CategoryRepository;
 import com.devmare.blog_app_apis.repositories.PostRepository;
 import com.devmare.blog_app_apis.repositories.UserRepository;
