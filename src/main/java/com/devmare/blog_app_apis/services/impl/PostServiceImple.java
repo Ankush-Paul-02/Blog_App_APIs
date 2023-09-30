@@ -49,13 +49,19 @@ public class PostServiceImple implements PostService {
     }
 
     @Override
-    public Post updatePost(PostDTO postDTO, Integer id) {
-        return null;
+    public PostDTO updatePost(PostDTO postDTO, Integer id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post ", "id: ", id));
+        post.setTitle(postDTO.getTitle());
+        post.setContent(postDTO.getContent());
+        post.setImageName(postDTO.getImageName());
+        Post updatedPost = postRepository.save(post);
+        return modelMapperConfiguration.modelMapper().map(updatedPost, PostDTO.class);
     }
 
     @Override
     public void deletePost(Integer id) {
-
+        Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post ", "id: ", id));
+        postRepository.delete(post);
     }
 
     @Override

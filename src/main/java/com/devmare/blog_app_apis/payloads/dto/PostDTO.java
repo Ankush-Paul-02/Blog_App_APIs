@@ -14,6 +14,7 @@ import java.util.Date;
 @Setter
 public class PostDTO {
 
+    private Integer id;
     @NotEmpty
     private String title;
     @NotEmpty

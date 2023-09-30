@@ -1,5 +1,6 @@
 package com.devmare.blog_app_apis.controllers;
 
+import com.devmare.blog_app_apis.payloads.ApiResponse;
 import com.devmare.blog_app_apis.payloads.dto.PostDTO;
 import com.devmare.blog_app_apis.services.PostService;
 import jakarta.validation.Valid;
@@ -52,4 +53,19 @@ public class PostController {
         PostDTO postDTO = postService.getPostById(postId);
         return new ResponseEntity<>(postDTO, HttpStatus.OK);
     }
+
+    //! http://localhost:8081/api/posts/{postId}
+    @DeleteMapping("/posts/{postId}")
+    public ApiResponse deletePostById(@PathVariable Integer postId) {
+        postService.deletePost(postId);
+        return new ApiResponse("Post is successfully deleted!", true);
+    }
+
+    //! http://localhost:8081/api/posts/{postId}
+    @PutMapping("/posts/{postId}")
+    public ResponseEntity<PostDTO> updatePostById(@RequestBody PostDTO postDTO, @PathVariable Integer postId) {
+        postService.updatePost(postDTO, postId);
+        return new ResponseEntity<>(postDTO, HttpStatus.OK);
+    }
+
 }
