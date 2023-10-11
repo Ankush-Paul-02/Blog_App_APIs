@@ -1,5 +1,6 @@
 package com.devmare.blog_app_apis.controllers;
 
+import com.devmare.blog_app_apis.configuration.AppConstants;
 import com.devmare.blog_app_apis.payloads.ApiResponse;
 import com.devmare.blog_app_apis.payloads.PostResponse;
 import com.devmare.blog_app_apis.payloads.dto.PostDTO;
@@ -45,10 +46,10 @@ public class PostController {
     //! http://localhost:8081/api/posts
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPosts(
-            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
-            @RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection
+            @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDirection", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortDirection
     ) {
         return new ResponseEntity<>(postService.getAllPosts(pageNumber, pageSize, sortBy, sortDirection), HttpStatus.OK);
     }
