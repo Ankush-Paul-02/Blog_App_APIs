@@ -1,6 +1,7 @@
 package com.devmare.blog_app_apis.services;
 
 import com.devmare.blog_app_apis.entities.Post;
+import com.devmare.blog_app_apis.payloads.PostResponse;
 import com.devmare.blog_app_apis.payloads.dto.PostDTO;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface PostService {
 
     void deletePost(Integer id);
 
-    List<PostDTO> getAllPosts();
+    PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
 
     PostDTO getPostById(Integer id);
 

@@ -1,6 +1,7 @@
 package com.devmare.blog_app_apis.controllers;
 
 import com.devmare.blog_app_apis.payloads.ApiResponse;
+import com.devmare.blog_app_apis.payloads.PostResponse;
 import com.devmare.blog_app_apis.payloads.dto.PostDTO;
 import com.devmare.blog_app_apis.services.PostService;
 import jakarta.validation.Valid;
@@ -43,8 +44,11 @@ public class PostController {
 
     //! http://localhost:8081/api/posts
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDTO>> getAllPosts() {
-        return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
+    public ResponseEntity<PostResponse> getAllPosts(
+            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
+    ) {
+        return new ResponseEntity<>(postService.getAllPosts(pageNumber, pageSize), HttpStatus.OK);
     }
 
     //! http://localhost:8081/api/posts/{postId}
@@ -67,5 +71,4 @@ public class PostController {
         postService.updatePost(postDTO, postId);
         return new ResponseEntity<>(postDTO, HttpStatus.OK);
     }
-
 }
