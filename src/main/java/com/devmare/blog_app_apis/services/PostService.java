@@ -1,6 +1,5 @@
 package com.devmare.blog_app_apis.services;
 
-import com.devmare.blog_app_apis.entities.Post;
 import com.devmare.blog_app_apis.payloads.PostResponse;
 import com.devmare.blog_app_apis.payloads.dto.PostDTO;
 
@@ -22,6 +21,6 @@ public interface PostService {
 
     List<PostDTO> getPostByUser(Integer userId);
 
-    List<Post> searchPost(String keyword);
+    List<PostDTO> searchPost(String keyword);
 
 }
