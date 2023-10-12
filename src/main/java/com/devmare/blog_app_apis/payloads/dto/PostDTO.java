@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +25,5 @@ public class PostDTO {
     private Date createdAt;
     private CategoryDTO category;
     private UserDTO user;
+    private Set<CommentDTO> comments = new HashSet<>();
 }
