@@ -6,15 +6,19 @@ import com.devmare.blog_app_apis.payloads.PostResponse;
 import com.devmare.blog_app_apis.payloads.dto.PostDTO;
 import com.devmare.blog_app_apis.services.FileService;
 import com.devmare.blog_app_apis.services.PostService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -105,5 +109,16 @@ public class PostController {
         postDTO.setImageName(filename);
         PostDTO updatedPost = postService.updatePost(postDTO, id);
         return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+    }
+
+    //! http://localhost:8081/api/posts/image/{imageName}
+    @GetMapping(value = "posts/image/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public void downloadImage(
+            @PathVariable String imageName,
+            HttpServletResponse response
+    ) throws IOException {
+        InputStream resourceStream = fileService.getResource(path, imageName);
+        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        StreamUtils.copy(resourceStream, response.getOutputStream());
     }
 }
