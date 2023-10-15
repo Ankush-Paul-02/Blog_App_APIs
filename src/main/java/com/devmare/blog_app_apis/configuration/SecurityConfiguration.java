@@ -1,6 +1,8 @@
 package com.devmare.blog_app_apis.configuration;
 
 import com.devmare.blog_app_apis.security.CustomUserDetailService;
+import com.devmare.blog_app_apis.security.JwtAuthenticationEntryPoint;
+import com.devmare.blog_app_apis.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,11 +12,11 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,15 +25,32 @@ public class SecurityConfiguration {
     @Autowired
     private CustomUserDetailService customUserDetailService;
 
+    @Autowired
+    private JwtAuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
+    private JwtAuthenticationFilter authenticationFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/api/auth/login")
+                        .permitAll()
+                )
+                .authorizeHttpRequests((auth) -> auth
                         .anyRequest()
                         .authenticated()
                 )
-                .httpBasic(withDefaults());
+                .exceptionHandling(
+                        (exception) -> exception
+                                .authenticationEntryPoint(authenticationEntryPoint)
+                )
+                .sessionManagement(
+                        (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                );
+        httpSecurity.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
