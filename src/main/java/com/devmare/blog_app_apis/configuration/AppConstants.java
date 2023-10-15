@@ -9,5 +9,5 @@ public class AppConstants {
     //? TOken validity in ms
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
-    public static final String SECRET = "devmareKey";
+    public static final String SECRET = "0LbTLwaO5m8drW3biEgJsPV/EeK9Hpcfl4d+VbPao+PKfRjsWqOzmRdg4UGrY4l9";
 }

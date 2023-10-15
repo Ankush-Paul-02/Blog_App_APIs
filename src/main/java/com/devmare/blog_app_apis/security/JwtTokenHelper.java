@@ -4,10 +4,13 @@ import com.devmare.blog_app_apis.configuration.AppConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +35,17 @@ public class JwtTokenHelper {
 
     //? For retrieving any information from the token we'll need the secret key
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(AppConstants.SECRET).parseClaimsJws(token).getBody();
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    private Key getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(AppConstants.SECRET);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     //? Check if the token is expired or not
@@ -54,9 +67,9 @@ public class JwtTokenHelper {
                 .builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .setIssuedAt(new Date())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + AppConstants.JWT_TOKEN_VALIDITY * 100))
-                .signWith(SignatureAlgorithm.HS256, AppConstants.SECRET)
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 

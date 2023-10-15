@@ -35,9 +35,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/auth/login")
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**")
                         .permitAll()
+                        .requestMatchers("/api/auth")
+                        .authenticated()
                 )
                 .authorizeHttpRequests((auth) -> auth
                         .anyRequest()
@@ -48,9 +50,10 @@ public class SecurityConfiguration {
                                 .authenticationEntryPoint(authenticationEntryPoint)
                 )
                 .sessionManagement(
-                        (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
-        httpSecurity.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
