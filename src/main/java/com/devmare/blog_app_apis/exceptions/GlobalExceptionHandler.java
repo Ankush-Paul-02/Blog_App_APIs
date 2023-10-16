@@ -1,6 +1,6 @@
 package com.devmare.blog_app_apis.exceptions;
 
-import com.devmare.blog_app_apis.payloads.ApiResponse;
+import com.devmare.blog_app_apis.payloads.AppApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,9 +15,9 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiResponse> resourceNotFoundExceptionHandler(ResourceNotFoundException exception) {
+    public ResponseEntity<AppApiResponse> resourceNotFoundExceptionHandler(ResourceNotFoundException exception) {
         String message = exception.getMessage();
-        ApiResponse apiResponse = new ApiResponse(message, false);
+        AppApiResponse apiResponse = new AppApiResponse(message, false);
         return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
     }
 
@@ -33,9 +33,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ApiException.class)
-    public ResponseEntity<ApiResponse> handleApiException(ApiException exception) {
+    public ResponseEntity<AppApiResponse> handleApiException(ApiException exception) {
         String message = exception.getMessage();
-        ApiResponse apiResponse = new ApiResponse(message, true);
+        AppApiResponse apiResponse = new AppApiResponse(message, true);
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }
 }

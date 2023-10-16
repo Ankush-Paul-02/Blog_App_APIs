@@ -1,11 +1,12 @@
 package com.devmare.blog_app_apis.controllers;
 
 import com.devmare.blog_app_apis.configuration.AppConstants;
-import com.devmare.blog_app_apis.payloads.ApiResponse;
+import com.devmare.blog_app_apis.payloads.AppApiResponse;
 import com.devmare.blog_app_apis.payloads.PostResponse;
 import com.devmare.blog_app_apis.payloads.dto.PostDTO;
 import com.devmare.blog_app_apis.services.FileService;
 import com.devmare.blog_app_apis.services.PostService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+@SecurityRequirement(name = "scheme1")
 @RestController
 @RequestMapping("/api/")
 @Tag(name = "Post Controller", description = "This contains Post related API methods")
@@ -79,9 +81,9 @@ public class PostController {
 
     //! http://localhost:8081/api/posts/{postId}
     @DeleteMapping("/posts/{postId}")
-    public ApiResponse deletePostById(@PathVariable Integer postId) {
+    public AppApiResponse deletePostById(@PathVariable Integer postId) {
         postService.deletePost(postId);
-        return new ApiResponse("Post is successfully deleted!", true);
+        return new AppApiResponse("Post is successfully deleted!", true);
     }
 
     //! http://localhost:8081/api/posts/{postId}

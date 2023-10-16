@@ -1,8 +1,9 @@
 package com.devmare.blog_app_apis.controllers;
 
-import com.devmare.blog_app_apis.payloads.ApiResponse;
+import com.devmare.blog_app_apis.payloads.AppApiResponse;
 import com.devmare.blog_app_apis.payloads.dto.CategoryDTO;
 import com.devmare.blog_app_apis.services.CategoryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SecurityRequirement(name = "scheme1")
 @RestController
 @RequestMapping("/api/categories")
 @Tag(name = "Category Controller", description = "This contains Category related API methods")
@@ -36,10 +38,10 @@ public class CategoryController {
 
     //! http://localhost:8081/api/categories/{categoryId}
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<ApiResponse> deleteCategory(@PathVariable Integer categoryId) {
+    public ResponseEntity<AppApiResponse> deleteCategory(@PathVariable Integer categoryId) {
         categoryService.deleteCategory(categoryId);
         return new ResponseEntity<>(
-                new ApiResponse("Category deleted successfully", true),
+                new AppApiResponse("Category deleted successfully", true),
                 HttpStatus.OK
         );
     }

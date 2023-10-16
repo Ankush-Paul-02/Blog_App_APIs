@@ -1,8 +1,12 @@
 package com.devmare.blog_app_apis.controllers;
 
-import com.devmare.blog_app_apis.payloads.ApiResponse;
+import com.devmare.blog_app_apis.payloads.AppApiResponse;
 import com.devmare.blog_app_apis.payloads.dto.UserDTO;
 import com.devmare.blog_app_apis.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+@SecurityRequirement(name = "scheme1")
 
 @RestController
 @RequestMapping("/api/users")
@@ -23,6 +29,14 @@ public class UserController {
 
     //! http://localhost:8081/api/users/
     @PostMapping("/")
+    @Operation(summary = "Create user API", description = "This is user API")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Success | Ok"),
+                    @ApiResponse(responseCode = "401", description = "Not authorized!"),
+                    @ApiResponse(responseCode = "201", description = "New user created"),
+            }
+    )
     public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) {
         UserDTO newUser = userService.createUser(userDTO);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
@@ -38,10 +52,10 @@ public class UserController {
     //! http://localhost:8081/api/users/{userId}
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{userId}")
-    public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId) {
+    public ResponseEntity<AppApiResponse> deleteUser(@PathVariable Integer userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(
-                new ApiResponse("User deleted successfully", true),
+                new AppApiResponse("User deleted successfully", true),
                 HttpStatus.OK
         );
     }
