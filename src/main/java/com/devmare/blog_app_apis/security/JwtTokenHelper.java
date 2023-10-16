@@ -44,7 +44,7 @@ public class JwtTokenHelper {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(AppConstants.SECRET);
+        byte[] keyBytes = Decoders.BASE64.decode(AppConstants.SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

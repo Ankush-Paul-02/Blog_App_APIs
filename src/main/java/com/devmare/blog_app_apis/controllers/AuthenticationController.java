@@ -1,5 +1,6 @@
 package com.devmare.blog_app_apis.controllers;
 
+import com.devmare.blog_app_apis.exceptions.ApiException;
 import com.devmare.blog_app_apis.payloads.JwtAuthenticationRequest;
 import com.devmare.blog_app_apis.security.CustomUserDetailService;
 import com.devmare.blog_app_apis.security.JwtAuthenticationResponse;
@@ -48,7 +49,7 @@ public class AuthenticationController {
         try {
             authenticationManager.authenticate(token);
         } catch (BadCredentialsException e) {
-            throw new Exception("Invalid username or password");
+            throw new ApiException("Invalid username or password");
         }
     }
 }
