@@ -3,6 +3,7 @@ package com.devmare.blog_app_apis.controllers;
 import com.devmare.blog_app_apis.payloads.ApiResponse;
 import com.devmare.blog_app_apis.payloads.dto.UserDTO;
 import com.devmare.blog_app_apis.services.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "User Controller", description = "This contains User related API methods")
 public class UserController {
 
     @Autowired

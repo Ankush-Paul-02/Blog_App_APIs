@@ -6,6 +6,7 @@ import com.devmare.blog_app_apis.payloads.PostResponse;
 import com.devmare.blog_app_apis.payloads.dto.PostDTO;
 import com.devmare.blog_app_apis.services.FileService;
 import com.devmare.blog_app_apis.services.PostService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/")
+@Tag(name = "Post Controller", description = "This contains Post related API methods")
 public class PostController {
 
     @Autowired
