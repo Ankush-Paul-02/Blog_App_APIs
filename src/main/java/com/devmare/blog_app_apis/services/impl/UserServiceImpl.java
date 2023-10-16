@@ -1,12 +1,16 @@
 package com.devmare.blog_app_apis.services.impl;
 
+import com.devmare.blog_app_apis.configuration.AppConstants;
 import com.devmare.blog_app_apis.configuration.ModelMapperConfiguration;
+import com.devmare.blog_app_apis.entities.Role;
 import com.devmare.blog_app_apis.entities.User;
 import com.devmare.blog_app_apis.exceptions.ResourceNotFoundException;
 import com.devmare.blog_app_apis.payloads.dto.UserDTO;
+import com.devmare.blog_app_apis.repositories.RoleRepository;
 import com.devmare.blog_app_apis.repositories.UserRepository;
 import com.devmare.blog_app_apis.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +24,24 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ModelMapperConfiguration modelMapperConfiguration;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Override
+    public UserDTO registerNewUser(UserDTO userDTO) {
+        User user = modelMapperConfiguration.modelMapper().map(userDTO, User.class);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
+        Role role = roleRepository.findById(AppConstants.NORMAL_USER).get();
+        user.getRoles().add(role);
+
+        User newUser = userRepository.save(user);
+        return modelMapperConfiguration.modelMapper().map(newUser, UserDTO.class);
+    }
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {

@@ -1,5 +1,6 @@
 package com.devmare.blog_app_apis.payloads.dto;
 
+import com.devmare.blog_app_apis.entities.Role;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,6 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,4 +37,6 @@ public class UserDTO {
 
     @NotEmpty
     private String about;
+
+    private Set<RoleDTO> roles = new HashSet<>();
 }
