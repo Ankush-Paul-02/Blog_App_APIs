@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @SecurityRequirement(name = "scheme1")
-
 @RestController
 @RequestMapping("/api/users")
 @Tag(name = "User Controller", description = "This contains User related API methods")

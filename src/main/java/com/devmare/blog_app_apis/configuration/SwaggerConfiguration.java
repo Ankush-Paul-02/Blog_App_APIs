@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Configuration;
 
+//! http://localhost:8081/swagger-ui/index.html#/
 @Configuration
 @SecurityScheme(
         name = "scheme1",
@@ -36,7 +37,6 @@ import org.springframework.context.annotation.Configuration;
         )
 )
 public class SwaggerConfiguration {
-
     /*@Bean
     public OpenAPI openAPI() {
         String schemeName = "bearerScheme";
